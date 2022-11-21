@@ -22,3 +22,8 @@ create table staff
   food_choice varchar(10),
   PRIMARY KEY(roll_number)
 );
+
+create table breakfast(day varchar(11) PRIMARY KEY,dishes varchar(300));
+create table lunch(day varchar(11) PRIMARY KEY,dishes varchar(300));
+create table snacks(day varchar(11) PRIMARY KEY,dishes varchar(300));
+create table dinner(day varchar(11) PRIMARY KEY,dishes varchar(300));
