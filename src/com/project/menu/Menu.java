@@ -7,10 +7,6 @@ import com.project.util.*;
 
 public class Menu
 {
-    // private String day;
-    // private TreeMap<String,ArrayList<Food>> menuMap=new TreeMap<String,ArrayList<Food>>(); 
-
-    
     DataBaseUtil databaseutil=new DataBaseUtil();
 
     public void showMealsofDay(String day)
