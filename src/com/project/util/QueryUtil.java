@@ -168,4 +168,32 @@ public class QueryUtil {
     public static String SelectLessSalStaff(int staffSal) {
         return "SELECT * FROM Staff WHERE Salary < \"" + staffSal + "\" ";
     }
+    
+    public static ArrayList<String> showMealsofDay(String day) //used ArrayList to  store queries for different tables
+    {
+        ArrayList<String> meals=new ArrayList<String>(4);
+        meals.add(showBreakfastofDay(day));
+        meals.add(showLunchofDay(day));
+        meals.add(showSnacksofDay(day));
+        meals.add(showDinnerofDay(day));
+
+        return meals;
+    }
+
+    public static String showBreakfastofDay(String day)
+    {
+        return "select * from breakfast where day=\""+day+"\"";
+    }
+    public static String showLunchofDay(String day)
+    {
+        return "select * from lunch where day=\""+day+"\"";
+    }
+    public static String showSnacksofDay(String day)
+    {
+        return "select * from snacks where day=\""+day+"\"";
+    }
+    public static String showDinnerofDay(String day)
+    {
+        return "select * from dinner where day=\""+day+"\"";
+    }
 }
