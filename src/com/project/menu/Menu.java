@@ -45,7 +45,6 @@ public class Menu
                         }
                     }
                 }
-                // menuMap.put(mealStr.get(k),arrFood);
                 System.out.print(mealStr.get(k)+" -> ");
                 System.out.println(arrFood);
                 k++;
@@ -58,7 +57,6 @@ public class Menu
         }
     }
 
-    //showBreakfast()
     public void showBreakfast()
     {
         System.out.println("-------------------------------------");
@@ -81,7 +79,6 @@ public class Menu
         }
     }
 
-    //showbreakfastday()
     public void showBreakfastofDay(String day)
     {
         try
@@ -114,7 +111,6 @@ public class Menu
         }
     }
 
-    //showLunch()
     public void showLunch()
     {
         System.out.println("-------------------------------------");
@@ -137,7 +133,6 @@ public class Menu
         }
     }
 
-    //showbreakfastday()
     public void showLunchofDay(String day)
     {
         try
@@ -169,7 +164,7 @@ public class Menu
             System.out.println(e);
         }
     }
-    //showBreakfast()
+    
     public void showSnacks()
     {
         System.out.println("-------------------------------------");
@@ -192,7 +187,6 @@ public class Menu
         }
     }
 
-    //showbreakfastday()
     public void showSnacksofDay(String day)
     {
         try
@@ -225,7 +219,7 @@ public class Menu
             System.out.println(e);
         }
     }
-    //showBreakfast()
+    
     public void showDinner()
     {
         System.out.println("-------------------------------------");
@@ -247,8 +241,7 @@ public class Menu
             System.out.println("Something wrong");
         }
     }
-
-    //showbreakfastday()
+    
     public void showDinnerofDay(String day)
     {
         try
