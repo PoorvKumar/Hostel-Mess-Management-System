@@ -2,6 +2,7 @@ package com.project.menu;
 
 import java.util.*;
 import java.sql.*;
+import java.io.*;
 import com.project.food.Food;
 import com.project.util.*;
 
@@ -26,7 +27,9 @@ public class Menu
             mealStr.add("Dinner");
             int k=0;
 
+            System.out.println("--------------------------------------------------------------------------------");
             System.out.println("Menu for "+day+" is -> ");
+            System.out.println("--------------------------------------------------------------------------------");
 
             for(String x:meals)
             {
@@ -45,11 +48,13 @@ public class Menu
                         }
                     }
                 }
+                // menuMap.put(mealStr.get(k),arrFood);
                 System.out.print(mealStr.get(k)+" -> ");
                 System.out.println(arrFood);
                 k++;
                 arrFood.clear();
             }
+            System.out.println("--------------------------------------------------------------------------------");
         }
         catch(Exception e)
         {
@@ -57,11 +62,12 @@ public class Menu
         }
     }
 
+    //showBreakfast()
     public void showBreakfast()
     {
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println("BreakFast Menu -> ");
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
 
         try
         {
@@ -72,6 +78,7 @@ public class Menu
                 // System.out.println(str+" ->  "+breakfastMap.get(str));
                 showBreakfastofDay(str);
             }
+            System.out.println("--------------------------------------------------------------------------------");
         }
         catch(Exception e)
         {
@@ -79,6 +86,7 @@ public class Menu
         }
     }
 
+    //showbreakfastday()
     public void showBreakfastofDay(String day)
     {
         try
@@ -111,11 +119,12 @@ public class Menu
         }
     }
 
+    //showLunch()
     public void showLunch()
     {
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Lunch Menu -> ");
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
 
         try
         {
@@ -126,6 +135,7 @@ public class Menu
                 // System.out.println(str+" ->  "+breakfastMap.get(str));
                 showLunchofDay(str);
             }
+            System.out.println("--------------------------------------------------------------------------------");
         }
         catch(Exception e)
         {
@@ -133,6 +143,7 @@ public class Menu
         }
     }
 
+    //showbreakfastday()
     public void showLunchofDay(String day)
     {
         try
@@ -164,12 +175,12 @@ public class Menu
             System.out.println(e);
         }
     }
-    
+    //showBreakfast()
     public void showSnacks()
     {
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Snacks Menu -> ");
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
 
         try
         {
@@ -180,6 +191,8 @@ public class Menu
                 // System.out.println(str+" ->  "+breakfastMap.get(str));
                 showSnacksofDay(str);
             }
+            System.out.println("--------------------------------------------------------------------------------");
+
         }
         catch(Exception e)
         {
@@ -187,6 +200,7 @@ public class Menu
         }
     }
 
+    //showbreakfastday()
     public void showSnacksofDay(String day)
     {
         try
@@ -219,12 +233,12 @@ public class Menu
             System.out.println(e);
         }
     }
-    
+    //showBreakfast()
     public void showDinner()
     {
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Dinner Menu -> ");
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
 
         try
         {
@@ -235,13 +249,16 @@ public class Menu
                 // System.out.println(str+" ->  "+breakfastMap.get(str));
                 showDinnerofDay(str);
             }
+            System.out.println("--------------------------------------------------------------------------------");
+
         }
         catch(Exception e)
         {
             System.out.println("Something wrong");
         }
     }
-    
+
+    //showbreakfastday()
     public void showDinnerofDay(String day)
     {
         try
@@ -277,10 +294,10 @@ public class Menu
 
     public void showMenu()
     {
-        System.out.println("-------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Menu -> ");
-        System.out.println("-------------------------------------");
-
+        System.out.println("--------------------------------------------------------------------------------");
+        
         try
         {
             showBreakfast();
@@ -291,6 +308,276 @@ public class Menu
         catch(Exception e)
         {
             System.out.println("Something wrong");
+        }
+    }
+
+    public void insertBreakfastCSV(String path) throws Exception,SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.insertBreakfastCSV());
+
+            BufferedReader bReader=new BufferedReader(new FileReader(path));
+            bReader.readLine();
+
+            String line=bReader.readLine();
+            while(line!=null)
+            {
+                // String[] data=line.split(",",2);
+                int index=line.indexOf(',');
+                ArrayList<String> data=new ArrayList<String>();
+
+                data.add(line.substring(0,index));
+                data.add(line.substring(index+2,line.length()-1));
+
+                // System.out.println(line+" "+data);
+
+                ps.setString(1,data.get(0));
+                ps.setString(2,data.get(1));
+
+                ps.executeUpdate();
+
+                line=bReader.readLine();
+            }
+
+            System.out.println("Records inserted Successfully...");
+            showBreakfast();
+        }
+        catch(SQLIntegrityConstraintViolationException dupli)
+        {
+            System.out.println("No Duplicate entry allowed as Column Days set as Primary Key...");
+            deleteBreakfast();
+            insertBreakfastCSV(path);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public void insertLunchCSV(String path) throws Exception,SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.insertLunchCSV());
+
+            BufferedReader bReader=new BufferedReader(new FileReader(path));
+            bReader.readLine();
+
+            String line=bReader.readLine();
+            while(line!=null)
+            {
+                // String[] data=line.split(",",2);
+                int index=line.indexOf(',');
+                ArrayList<String> data=new ArrayList<String>();
+
+                data.add(line.substring(0,index));
+                data.add(line.substring(index+2,line.length()-1));
+
+                // System.out.println(line+" "+data);
+
+                ps.setString(1,data.get(0));
+                ps.setString(2,data.get(1));
+
+                ps.executeUpdate();
+
+                line=bReader.readLine();
+            }
+
+            System.out.println("Records inserted Successfully...");
+            showLunch();
+        }
+        catch(SQLIntegrityConstraintViolationException dupli)
+        {
+            System.out.println("No Duplicate entry allowed as Column Days set as Primary Key...");
+            deleteLunch();
+            insertLunchCSV(path);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public void insertSnacksCSV(String path) throws Exception,SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.insertSnacksCSV());
+
+            BufferedReader bReader=new BufferedReader(new FileReader(path));
+            bReader.readLine();
+
+            String line=bReader.readLine();
+            while(line!=null)
+            {
+                // String[] data=line.split(",",2);
+                int index=line.indexOf(',');
+                ArrayList<String> data=new ArrayList<String>();
+
+                data.add(line.substring(0,index));
+                data.add(line.substring(index+2,line.length()-1));
+
+                // System.out.println(line+" "+data);
+
+                ps.setString(1,data.get(0));
+                ps.setString(2,data.get(1));
+
+                ps.executeUpdate();
+
+                line=bReader.readLine();
+            }
+
+            System.out.println("Records inserted Successfully...");
+            showSnacks();
+        }
+        catch(SQLIntegrityConstraintViolationException dupli)
+        {
+            System.out.println("No Duplicate entry allowed as Column Days set as Primary Key...");
+            deleteSnacks();
+            insertSnacksCSV(path);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public void insertDinnerCSV(String path) throws Exception,SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.insertDinnerCSV());
+
+            BufferedReader bReader=new BufferedReader(new FileReader(path));
+            bReader.readLine();
+
+            String line=bReader.readLine();
+            while(line!=null)
+            {
+                // String[] data=line.split(",",2);
+                int index=line.indexOf(',');
+                ArrayList<String> data=new ArrayList<String>();
+
+                data.add(line.substring(0,index));
+                data.add(line.substring(index+2,line.length()-1));
+
+                // System.out.println(line+" "+data);
+
+                ps.setString(1,data.get(0));
+                ps.setString(2,data.get(1));
+
+                ps.executeUpdate();
+
+                line=bReader.readLine();
+            }
+
+            System.out.println("Records inserted Successfully...");
+            showDinner();
+        }
+        catch(SQLIntegrityConstraintViolationException dupli)
+        {
+            System.out.println("No Duplicate entry allowed as Column Days set as Primary Key...");
+            deleteDinner();
+            insertDinnerCSV(path);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    void deleteBreakfast()
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            Statement st=conn.createStatement();
+
+            int rows=st.executeUpdate(QueryUtil.deleteBreakfast());
+
+            if(rows>0)
+            {
+                System.out.println("Records deleted Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be deleted...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    void deleteLunch()
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            Statement st=conn.createStatement();
+
+            int rows=st.executeUpdate(QueryUtil.deleteLunch());
+
+            if(rows>0)
+            {
+                System.out.println("Records deleted Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be deleted...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    void deleteSnacks()
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            Statement st=conn.createStatement();
+
+            int rows=st.executeUpdate(QueryUtil.deleteSnacks());
+
+            if(rows>0)
+            {
+                System.out.println("Records deleted Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be deleted...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    void deleteDinner()
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            Statement st=conn.createStatement();
+
+            int rows=st.executeUpdate(QueryUtil.deleteDinner());
+
+            if(rows>0)
+            {
+                System.out.println("Records deleted Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be deleted...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
         }
     }
 }
