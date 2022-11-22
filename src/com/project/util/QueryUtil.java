@@ -196,4 +196,41 @@ public class QueryUtil {
     {
         return "select * from dinner where day=\""+day+"\"";
     }
+    
+    public static String insertBreakfastCSV()
+    {
+        return "insert into breakfast values(?,?)";
+    }
+
+    public static String insertLunchCSV()
+    {
+        return "insert into lunch values(?,?)";
+    }
+    
+    public static String insertSnacksCSV()
+    {
+        return "insert into snacks values(?,?)";
+    }
+    
+    public static String insertDinnerCSV()
+    {
+        return "insert into dinner values(?,?)";
+    }
+
+    public static String deleteBreakfast()
+    {
+        return "delete from breakfast";
+    }
+    public static String deleteLunch()
+    {
+        return "delete from lunch";
+    }
+    public static String deleteSnacks()
+    {
+        return "delete from snacks";
+    }
+    public static String deleteDinner()
+    {
+        return "delete from dinner";
+    }
 }
