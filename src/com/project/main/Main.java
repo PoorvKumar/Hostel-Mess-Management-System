@@ -1,16 +1,17 @@
 package com.project.main;
 
+import com.project.login.Login;
+import com.project.menu.Menu;
 import com.project.service.DatabaseService;
 import com.project.staff.cleaner.Cleaner;
 import com.project.staff.cook.Cook;
 import com.project.staff.serve.Serve;
 import com.project.student.Student;
-import com.project.menu.Menu;
-import com.project.food.Food;
 
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -19,9 +20,56 @@ public class Main {
         DatabaseService databaseService = new DatabaseService();
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
+        boolean login = true;
+        boolean isRunning = false;
+
+        while (login) {
+            System.out.println("\nEnter choice:");
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+
+            try {
+                int choice = Integer.parseInt(scan.nextLine());
+                switch (choice) {
+                    case 1 -> {
+                        System.out.println("Please enter Email and Password");
+                        if (databaseService.loginCheck(scan.nextLine(), scan.nextLine())) {
+                            System.out.println("Login Successful");
+                            login = false;
+                            isRunning = true;
+                        } else {
+                            System.out.println("Login Failed. Please check your Email and Password");
+                        }
+                    }
+
+                    case 2 -> {
+                        boolean continueLoop = true;
+                        do {
+                            try {
+                                System.out.println("Enter the Name, Email, Password, Age, Gender, Contact Number");
+                                databaseService.registerLoginDetails(new Login(scan.nextLine(), scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine()));
+                                continueLoop = false;
+                            } catch (NumberFormatException numberFormatException) {
+                                System.err.printf("%nException: %s%n", numberFormatException);
+                                System.out.println("Please Enter the details with correct format");
+                            } catch (Exception e) {
+                                System.out.println("Something went wrong...");
+                                scan.nextLine();
+                            }
+                        } while (continueLoop);
+                    }
+                }
+            } catch (NumberFormatException numberFormatException) {
+                System.out.println("Invalid Input...Press Enter");
+                scan.nextLine(); //to clear buffer
+            } catch (Exception e) {
+                System.out.println("Something went wrong...");
+                scan.nextLine();
+            }
+        }
+
 
         try {
-            boolean isRunning = true;
 
             while (isRunning) {
                 System.out.println("\nEnter choice:");
@@ -30,8 +78,7 @@ public class Main {
                 System.out.println("3. Food Menu");
                 System.out.println("4. Exit");
 
-                try
-                {
+                try {
                     int choice = Integer.parseInt(scan.nextLine());
 
                     switch (choice) {
@@ -709,20 +756,18 @@ public class Main {
                             }
                         }
 
-                            case 4 -> {
-                                System.out.println("Thank You. Visit Again");
-                                isRunning = false;
-                            }
-
-                            default -> System.out.println("Incorrect Choice");
+                        case 4 -> {
+                            System.out.println("Thank You. Visit Again");
+                            isRunning = false;
                         }
 
-                }
-                catch(NumberFormatException numberFormatException){
+                        default -> System.out.println("Incorrect Choice");
+                    }
+
+                } catch (NumberFormatException numberFormatException) {
                     System.out.println("Invalid Input...Press Enter");
                     scan.nextLine(); //to clear buffer
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     System.out.println("Something went wrong...");
                     scan.nextLine();
                 }
