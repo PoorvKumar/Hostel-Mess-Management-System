@@ -233,4 +233,21 @@ public class QueryUtil {
     {
         return "delete from dinner";
     }
+    
+    public static String updateBreakfast()
+    {
+        return "update breakfast set dishes=? where day=?";
+    }
+    public static String updateLunch()
+    {
+        return "update lunch set dishes=? where day=?";
+    }
+    public static String updateSnacks()
+    {
+        return "update snacks set dishes=? where day=?";
+    }
+    public static String updateDinner()
+    {
+        return "update dinners set dishes=? where day=?";
+    }
 }
