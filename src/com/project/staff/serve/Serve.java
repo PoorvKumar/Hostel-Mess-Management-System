@@ -20,7 +20,7 @@ public class Serve extends Staff {
         return diff.getYears();
     }
     public int getSalary() {
-        int salary=getBase_Salary()+((10*getBase_Salary())*factor())/100+((2*getBase_Salary())*getWork_experience())/100;
+        int salary=getBase_Salary()+(((10*getBase_Salary())*factor())/100)+((2*getBase_Salary())*getWork_experience())/100;
         return salary;
     }
 

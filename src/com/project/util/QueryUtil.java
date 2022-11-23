@@ -182,7 +182,7 @@ public class QueryUtil {
 
     public static ArrayList<String> showMealsofDay(String day) //used ArrayList to  store queries for different tables
     {
-        ArrayList<String> meals = new ArrayList<String>(4);
+        ArrayList<String> meals = new ArrayList<>(4);
         meals.add(showBreakfastofDay(day));
         meals.add(showLunchofDay(day));
         meals.add(showSnacksofDay(day));

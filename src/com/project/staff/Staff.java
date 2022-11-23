@@ -1,6 +1,5 @@
 package com.project.staff;
-import java.util.*;
-import com.project.person.*;
+import com.project.person.Person;
 interface Salary{
    int getSalary() throws Exception;
 }

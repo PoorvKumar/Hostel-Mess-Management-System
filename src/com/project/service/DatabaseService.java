@@ -41,7 +41,7 @@ public class DatabaseService {
         }
     }
 
-    public boolean loginCheck(String email,String password) throws SQLException {
+    public boolean loginCheck(String email, String password) throws SQLException {
 
         boolean isFound = false;
 
@@ -517,7 +517,7 @@ public class DatabaseService {
                         System.out.println("No records found");
                     } else {
                         do {
-                            if ((resultSet.getString("designation")).equals("COOK")) {
+                            if ((resultSet.getString("designation")).equalsIgnoreCase("COOK")) {
                                 staffs.add(new Cook(resultSet.getString("ID"),
                                         resultSet.getString("name"),
                                         resultSet.getInt("age"),
@@ -527,7 +527,7 @@ public class DatabaseService {
                                         resultSet.getString("Address"),
                                         resultSet.getString("doj"),
                                         resultSet.getInt("work_experience")));
-                            } else if ((resultSet.getString("designation")).equals("SERVE")) {
+                            } else if ((resultSet.getString("designation")).equalsIgnoreCase("SERVE")) {
                                 staffs.add(new Serve(resultSet.getString("ID"),
                                         resultSet.getString("name"),
                                         resultSet.getInt("age"),
@@ -537,7 +537,7 @@ public class DatabaseService {
                                         resultSet.getString("Address"),
                                         resultSet.getString("doj"),
                                         resultSet.getInt("work_experience")));
-                            } else if ((resultSet.getString("designation")).equals("CLEANER")) {
+                            } else if ((resultSet.getString("designation")).equalsIgnoreCase("CLEANER")) {
                                 staffs.add(new Cleaner(resultSet.getString("ID"),
                                         resultSet.getString("name"),
                                         resultSet.getInt("age"),
@@ -929,7 +929,7 @@ public class DatabaseService {
         }
     }
 
-    public void getSalaryByValue(int staffSal) throws Exception {
+    public void getSalaryByvalue(int staffSal) throws Exception {
         List<Staff> staffs = new ArrayList<>();
         try (Connection con = databaseUtil.getConnection();
              Statement stmt = con.createStatement()
@@ -1122,9 +1122,11 @@ public class DatabaseService {
 
                 } else if ((data[0].toUpperCase()).contains("SV")) {
                     insertStaff(new Serve(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
-                } else {
+
+                } else
                     System.out.println("Invalid ID Choice");
-                }
+
+
             }
 
             System.out.println("Data Inserted Successfully");
