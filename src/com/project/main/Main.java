@@ -5,8 +5,13 @@ import com.project.staff.cleaner.Cleaner;
 import com.project.staff.cook.Cook;
 import com.project.staff.serve.Serve;
 import com.project.student.Student;
+import com.project.menu.Menu;
+import com.project.food.Food;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -376,8 +381,337 @@ public class Main {
                         }
                     }
 
-                    case 3 -> {
+                    case 3 -> 
+                    {
+                        boolean menuIsRunning = true;
 
+                        Menu menu=new Menu();
+
+                        while (menuIsRunning) {
+                            System.out.println("\nEnter choice:");
+                            System.out.println("1. Insert Breakfast using CSV");
+                            System.out.println("2. Insert Lunch using CSV");
+                            System.out.println("3. Insert Snacks using CSV");
+                            System.out.println("4. Insert Dinner using CSV");
+                            System.out.println("5. Show Menu");
+                            System.out.println("6. Show Meal of Day");
+                            System.out.println("7. Show Breakfast/Lunch/Snacks/Dinner of Day");
+                            System.out.println("8. Show Breakfast");
+                            System.out.println("9. Show Lunch");
+                            System.out.println("10. Show Snacks");
+                            System.out.println("11. Show Dinner");
+                            System.out.println("12. Delete any Meal Data");
+                            System.out.println("13. Update Breakfast/Lunch/Snacks/Dinner using CSV");
+                            System.out.println("14. Exit");
+
+                            int menuChoice = Integer.parseInt(scan.nextLine());
+
+                            switch (menuChoice) 
+                            {
+                                case 1 ->
+                                {
+                                    boolean continueLoop=true;
+
+                                    do {
+                                        String path;
+                                        try {
+                                            System.out.println("Enter path of breakfast.csv ");
+                                            path= scan.nextLine();
+                                            menu.insertBreakfastCSV(path);
+                                            continueLoop = false;
+                                        } catch (Exception e)
+                                        {
+                                            System.err.printf("%nException: %s%n", e);
+                                            System.out.println("Please Enter the correct filepath");
+                                            path= scan.nextLine();
+                                        }
+                                    } while (continueLoop);
+                                }
+                                case 2 ->
+                                {
+                                    boolean continueLoop=true;
+                                    do {
+                                        String path;
+                                        try {
+                                            System.out.println("Enter path of lunch.csv ");
+                                            path= scan.nextLine();
+                                            menu.insertLunchCSV(path);
+                                            continueLoop = false;
+                                        } catch (Exception e)
+                                        {
+                                            System.err.printf("%nException: %s%n", e);
+                                            System.out.println("Please Enter the correct filepath");
+                                            path= scan.nextLine();
+                                        }
+                                    } while (continueLoop);
+                                }
+                                case 3 -> {
+                                    boolean continueLoop = true;
+                                    do {
+                                        String path;
+                                        try {
+                                            System.out.println("Enter path of snacks.csv ");
+                                            path = scan.nextLine();
+                                            menu.insertSnacksCSV(path);
+                                            continueLoop = false;
+                                        } catch (Exception e) {
+                                            System.err.printf("%nException: %s%n", e);
+                                            System.out.println("Please Enter the correct filepath");
+                                            path = scan.nextLine();
+                                        }
+                                    } while (continueLoop);
+                                }
+                                case 4 -> {
+                                    boolean continueLoop = true;
+                                    do {
+                                        String path;
+                                        try {
+                                            System.out.println("Enter path of dinner.csv ");
+                                            path = scan.nextLine();
+                                            menu.insertDinnerCSV(path);
+                                            continueLoop = false;
+                                        } catch (Exception e) {
+                                            System.err.printf("%nException: %s%n", e);
+                                            System.out.println("Please Enter the correct filepath");
+                                            path = scan.nextLine();
+                                        }
+                                    } while (continueLoop);
+                                }
+
+                                case 5 -> menu.showMenu();
+
+                                case 6 ->
+                                {
+                                    ArrayList<String> days=new ArrayList<String>();
+                                    days.add("Monday");days.add("Tuesday");days.add("Wednesday");
+                                    days.add("Thursday");days.add("Friday");days.add("Saturday");
+                                    days.add("Sunday");
+
+                                    System.out.println("Enter day number in Monday(0)...Sunday(6)");
+                                    int choiceDay= scan.nextInt();
+
+                                    menu.showMealsofDay(days.get(choiceDay));
+
+                                }
+
+                                case 7 -> {
+                                    ArrayList<String> days=new ArrayList<String>();
+                                    days.add("Monday");days.add("Tuesday");days.add("Wednesday");
+                                    days.add("Thursday");days.add("Friday");days.add("Saturday");
+                                    days.add("Sunday");
+
+                                    System.out.println("Enter meal to be shown: ");
+
+                                    int choiceMealInt=0;
+                                    try {
+                                        boolean flagMeal = true;
+                                        do {
+                                            String choiceMeal = scan.nextLine();
+                                            if (choiceMeal.equalsIgnoreCase("Breakfast")) {
+                                                choiceMealInt = 1;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Lunch")) {
+                                                choiceMealInt = 2;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Snacks")) {
+                                                choiceMealInt = 3;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Dinner")) {
+                                                choiceMealInt = 4;
+                                                flagMeal = false;
+                                            } else {
+                                                System.out.println("Please enter valid meal...");
+                                            }
+                                        }
+                                        while (flagMeal);
+
+                                        System.out.println("Enter day number in Monday(0)...Sunday(6)");
+                                        int choiceDay= scan.nextInt();
+                                        scan.nextLine();
+
+                                        switch(choiceMealInt)
+                                        {
+                                            case 1 ->
+                                            {
+                                                menu.showBreakfastofDay(days.get(choiceDay));
+                                            }
+                                            case 2 ->
+                                            {
+                                                menu.showLunchofDay(days.get(choiceDay));
+                                            }
+                                            case 3 ->
+                                            {
+                                                menu.showSnacksofDay(days.get(choiceDay));
+                                            }
+                                            case 4 ->
+                                            {
+                                                menu.showDinnerofDay(days.get(choiceDay));
+                                            }
+                                            default ->
+                                            {
+                                                System.out.println("Breakfast printed by default");
+                                            }
+                                        }
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Something went wrong"+e);
+                                    }
+                                }
+
+                                case 8 -> menu.showBreakfast();
+
+                                case 9 -> menu.showLunch();
+
+                                case 10 -> menu.showSnacks();
+
+                                case 11 -> menu.showDinner();
+
+                                case 12 ->
+                                {
+                                    System.out.println("Enter meal to be deleted: ");
+
+                                    int choiceMealInt=0;
+                                    try
+                                    {
+                                        boolean flagMeal = true;
+                                        do {
+                                            String choiceMeal = scan.nextLine();
+                                            if (choiceMeal.equalsIgnoreCase("Breakfast")) {
+                                                choiceMealInt = 1;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Lunch")) {
+                                                choiceMealInt = 2;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Snacks")) {
+                                                choiceMealInt = 3;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Dinner")) {
+                                                choiceMealInt = 4;
+                                                flagMeal = false;
+                                            } else {
+                                                System.out.println("Please enter valid meal...");
+                                            }
+                                        }
+                                        while (flagMeal);
+
+                                        switch(choiceMealInt)
+                                        {
+                                            case 1 ->
+                                            {
+                                                menu.deleteBreakfast();
+                                            }
+                                            case 2 ->
+                                            {
+                                                menu.deleteLunch();
+                                            }
+                                            case 3 ->
+                                            {
+                                                menu.deleteSnacks();
+                                            }
+                                            case 4 ->
+                                            {
+                                                menu.deleteDinner();
+                                            }
+                                            default ->
+                                            {
+                                                System.out.println("Not deleted");
+                                            }
+                                        }
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Something went wrong "+e);
+                                    }
+                                }
+
+                                case 13 ->
+                                {
+                                    System.out.println("Enter meal to be updated from CSV: ");
+
+                                    int choiceMealInt=0;
+                                    try
+                                    {
+                                        boolean flagMeal = true;
+                                        do {
+                                            String choiceMeal = scan.nextLine();
+                                            if (choiceMeal.equalsIgnoreCase("Breakfast")) {
+                                                choiceMealInt = 1;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Lunch")) {
+                                                choiceMealInt = 2;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Snacks")) {
+                                                choiceMealInt = 3;
+                                                flagMeal = false;
+                                            } else if (choiceMeal.equalsIgnoreCase("Dinner")) {
+                                                choiceMealInt = 4;
+                                                flagMeal = false;
+                                            } else {
+                                                System.out.println("Please enter valid meal...");
+                                            }
+                                        }
+                                        while (flagMeal);
+
+                                        switch(choiceMealInt)
+                                        {
+                                            case 1 ->
+                                            {
+                                                System.out.println("Enter day for which breakfast to be updated");
+                                                String day= scan.nextLine();
+                                                System.out.println("Enter dishes :");
+                                                String dishes= scan.nextLine();
+
+                                                menu.updateBreakfast(day,dishes);
+                                            }
+                                            case 2 ->
+                                            {
+                                                System.out.println("Enter day for which breakfast to be updated(firstCase Upper and rest lower)");
+                                                String day= scan.nextLine();
+                                                System.out.println("Enter dishes(dishName1,veg/non-veg|dishName2,veg/non-veg) :");
+                                                String dishes= scan.nextLine();
+
+                                                menu.updateLunch(day,dishes);
+                                            }
+                                            case 3 ->
+                                            {
+                                                System.out.println("Enter day for which breakfast to be updated");
+                                                String day= scan.nextLine();
+                                                System.out.println("Enter dishes :");
+                                                String dishes= scan.nextLine();
+
+                                                menu.updateSnacks(day,dishes);
+                                            }
+                                            case 4 ->
+                                            {
+                                                System.out.println("Enter day for which breakfast to be updated");
+                                                String day= scan.nextLine();
+                                                System.out.println("Enter dishes :");
+                                                String dishes= scan.nextLine();
+
+                                                menu.updateDinner(day,dishes);
+                                            }
+                                            default ->
+                                            {
+                                                System.out.println("Not updated");
+                                            }
+                                        }
+                                    }
+                                    catch(Exception e)
+                                    {
+                                        System.out.println("Something went wrong "+e);
+                                    }
+                                }
+
+                                case 14 ->
+                                {
+                                    System.out.println("Thank You. Visit Again");
+                                    menuIsRunning = false;
+                                }
+
+                                default -> System.out.println("Incorrect Choice");
+                            }
+                        }
                     }
 
                     case 4 -> {
