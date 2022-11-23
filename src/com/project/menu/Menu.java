@@ -343,6 +343,7 @@ public class Menu
 
             System.out.println("Records inserted Successfully...");
             showBreakfast();
+            bReader.close();
         }
         catch(SQLIntegrityConstraintViolationException dupli)
         {
@@ -387,6 +388,7 @@ public class Menu
 
             System.out.println("Records inserted Successfully...");
             showLunch();
+            bReader.close();
         }
         catch(SQLIntegrityConstraintViolationException dupli)
         {
@@ -431,6 +433,7 @@ public class Menu
 
             System.out.println("Records inserted Successfully...");
             showSnacks();
+            bReader.close();
         }
         catch(SQLIntegrityConstraintViolationException dupli)
         {
@@ -475,6 +478,7 @@ public class Menu
 
             System.out.println("Records inserted Successfully...");
             showDinner();
+            bReader.close();
         }
         catch(SQLIntegrityConstraintViolationException dupli)
         {
@@ -573,6 +577,111 @@ public class Menu
             else
             {
                 System.out.println("Could not be deleted...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+    public void updateBreakfast(String day,String dishes) throws SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.updateBreakfast());
+
+            ps.setString(1, dishes);
+            ps.setString(2, day);
+
+            int rows=ps.executeUpdate();
+
+            if(rows>0)
+            {
+                System.out.println("Record Updated Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be updated...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public void updateLunch(String day,String dishes) throws SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.updateLunch());
+
+            ps.setString(1, dishes);
+            ps.setString(2, day);
+
+            int rows=ps.executeUpdate();
+
+            if(rows>0)
+            {
+                System.out.println("Record Updated Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be updated...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public void updateSnacks(String day,String dishes) throws SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.updateSnacks());
+
+            ps.setString(1, dishes);
+            ps.setString(2, day);
+
+            int rows=ps.executeUpdate();
+
+            if(rows>0)
+            {
+                System.out.println("Record Updated Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be updated...");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public void updateDinner(String day,String dishes) throws SQLException
+    {
+        try
+        {
+            Connection conn=databaseutil.getConnection();
+            PreparedStatement ps=conn.prepareStatement(QueryUtil.updateDinner());
+
+            ps.setString(1, dishes);
+            ps.setString(2, day);
+
+            int rows=ps.executeUpdate();
+
+            if(rows>0)
+            {
+                System.out.println("Record Updated Successfully...");
+            }
+            else
+            {
+                System.out.println("Could not be updated...");
             }
         }
         catch(Exception e)
