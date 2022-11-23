@@ -3,6 +3,15 @@ package com.project.util;
 import java.util.ArrayList;
 
 public class QueryUtil {
+
+    public static String registerLoginDetailsQuery() {
+        return "INSERT INTO LOGIN (NAME, EMAIL, PASSWORD, AGE, GENDER, CONTACT_NUMBER) VALUES (?, ?, ?, ?, ?, ?) ";
+    }
+
+    public static String loginCheckQuery(String email, String password) {
+        return "SELECT * FROM LOGIN WHERE EMAIL = \"" + email + "\" AND PASSWORD = \"" + password + "\"";
+    }
+
     public static String insertStudentQuery() {
         return "INSERT INTO STUDENT (ROLL_NUMBER, NAME, AGE, GENDER, CONTACT_NUMBER, DEGREE, FOOD_CHOICE) VALUES (?, ?, ?, ?, ?, ?, ?) ";
     }
@@ -228,5 +237,21 @@ public class QueryUtil {
 
     public static String deleteDinner() {
         return "delete from dinner";
+    }
+
+    public static String updateBreakfast() {
+        return "update breakfast set dishes=? where day=?";
+    }
+
+    public static String updateLunch() {
+        return "update lunch set dishes=? where day=?";
+    }
+
+    public static String updateSnacks() {
+        return "update snacks set dishes=? where day=?";
+    }
+
+    public static String updateDinner() {
+        return "update dinners set dishes=? where day=?";
     }
 }

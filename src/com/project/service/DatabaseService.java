@@ -1,5 +1,6 @@
 package com.project.service;
 
+import com.project.login.Login;
 import com.project.student.Student;
 import com.project.util.DatabaseUtil;
 import com.project.util.QueryUtil;
@@ -17,6 +18,43 @@ import java.util.List;
 public class DatabaseService {
 
     DatabaseUtil databaseUtil = new DatabaseUtil();
+
+    public void registerLoginDetails(Login login) throws SQLException {
+
+        try (Connection connection = databaseUtil.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(QueryUtil.registerLoginDetailsQuery())) {
+
+            preparedStatement.setString(1, login.getName());
+            preparedStatement.setString(2, login.getEmail());
+            preparedStatement.setString(3, login.getPassword());
+            preparedStatement.setInt(4, login.getAge());
+            preparedStatement.setString(5, login.getGender());
+            preparedStatement.setString(6, login.getContact_Info());
+
+            int rows = preparedStatement.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Registered Successfully.");
+            } else {
+                System.out.println("Registration Failed.");
+            }
+        }
+    }
+
+    public boolean loginCheck(String email,String password) throws SQLException {
+
+        boolean isFound = false;
+
+        try (Connection connection = databaseUtil.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(QueryUtil.loginCheckQuery(email, password))) {
+            if (resultSet.next()) {
+                isFound = true;
+            }
+        }
+
+        return isFound;
+    }
 
     public void insertStudent(Student student) throws SQLException {
 
@@ -1126,7 +1164,7 @@ public class DatabaseService {
 
     public void updateCSV(String file_path) throws Exception {
 
-        try (Connection connection = databaseUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(QueryUtil.insertStaffQuery()); BufferedReader bufferedReader = new BufferedReader(new FileReader(file_path))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file_path))) {
 
             String lineText;
 
