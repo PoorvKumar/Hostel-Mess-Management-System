@@ -8,14 +8,14 @@ import com.project.util.*;
 
 public class Menu
 {
-    DataBaseUtil databaseutil=new DataBaseUtil();
+    DatabaseUtil databaseutil=new DatabaseUtil();
 
     public void showMealsofDay(String day)
     {
         try
         {
             Connection conn=databaseutil.getConnection();
-            Statement st=conn.createStatement(ResultSet.CONCUR_READ_ONLY,ResultSet.TYPE_SCROLL_INSENSITIVE);
+            Statement st=conn.createStatement();
 
             ArrayList<String> meals=QueryUtil.showMealsofDay(day);
             ArrayList<Food> arrFood=new ArrayList<>(); 
@@ -58,7 +58,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
 
@@ -82,7 +82,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println("Something wrong");
+            System.out.println("Something wrong"+e);
         }
     }
 
@@ -115,7 +115,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
 
@@ -139,7 +139,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println("Something wrong");
+            System.out.println("Something went wrong: "+e);
         }
     }
 
@@ -172,7 +172,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
     //showBreakfast()
@@ -196,11 +196,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println("Something wrong");
+            System.out.println("Something went wrong: "+e);
         }
     }
 
-    //showbreakfastday()
     public void showSnacksofDay(String day)
     {
         try
@@ -230,10 +229,9 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    //showBreakfast()
     public void showDinner()
     {
         System.out.println("--------------------------------------------------------------------------------");
@@ -257,8 +255,6 @@ public class Menu
             System.out.println("Something wrong");
         }
     }
-
-    //showbreakfastday()
     public void showDinnerofDay(String day)
     {
         try
@@ -278,7 +274,6 @@ public class Menu
                     StringTokenizer stkFood=new StringTokenizer(stk.nextToken(),",");
                     while(stkFood.hasMoreTokens())
                     {
-                        // System.out.print(stkFood.nextToken()+" ");
                         arrFood.add(new Food(stkFood.nextToken(),stkFood.nextToken()));
                     }
                 }
@@ -288,7 +283,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
 
@@ -307,11 +302,11 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println("Something wrong");
+            System.out.println("Something went wrong: "+e);
         }
     }
 
-    public void insertBreakfastCSV(String path) throws Exception,SQLException
+    public void insertBreakfastCSV(String path) throws SQLException,FileNotFoundException
     {
         try
         {
@@ -353,10 +348,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    public void insertLunchCSV(String path) throws Exception,SQLException
+    public void insertLunchCSV(String path) throws SQLException,FileNotFoundException
     {
         try
         {
@@ -398,10 +393,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    public void insertSnacksCSV(String path) throws Exception,SQLException
+    public void insertSnacksCSV(String path) throws SQLException,FileNotFoundException
     {
         try
         {
@@ -414,14 +409,11 @@ public class Menu
             String line=bReader.readLine();
             while(line!=null)
             {
-                // String[] data=line.split(",",2);
                 int index=line.indexOf(',');
                 ArrayList<String> data=new ArrayList<String>();
 
                 data.add(line.substring(0,index));
                 data.add(line.substring(index+2,line.length()-1));
-
-                // System.out.println(line+" "+data);
 
                 ps.setString(1,data.get(0));
                 ps.setString(2,data.get(1));
@@ -443,10 +435,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    public void insertDinnerCSV(String path) throws Exception,SQLException
+    public void insertDinnerCSV(String path) throws SQLException,FileNotFoundException
     {
         try
         {
@@ -488,11 +480,11 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
 
-    void deleteBreakfast()
+    public void deleteBreakfast() throws SQLException
     {
         try
         {
@@ -512,10 +504,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    void deleteLunch()
+    public void deleteLunch() throws SQLException
     {
         try
         {
@@ -535,10 +527,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    void deleteSnacks()
+    public void deleteSnacks() throws SQLException
     {
         try
         {
@@ -558,10 +550,10 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
-    void deleteDinner()
+    public void deleteDinner() throws SQLException
     {
         try
         {
@@ -581,7 +573,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
 
@@ -608,7 +600,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
     public void updateLunch(String day,String dishes) throws SQLException
@@ -634,7 +626,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
     public void updateSnacks(String day,String dishes) throws SQLException
@@ -660,7 +652,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
     public void updateDinner(String day,String dishes) throws SQLException
@@ -686,7 +678,7 @@ public class Menu
         }
         catch(Exception e)
         {
-            System.out.println(e);
+            System.out.println("Something went wrong: "+e);
         }
     }
 }
