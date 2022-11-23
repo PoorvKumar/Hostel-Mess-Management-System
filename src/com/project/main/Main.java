@@ -138,7 +138,6 @@ public class Main {
                                         } catch (FileNotFoundException fileNotFoundException) {
                                             System.err.printf("%nException: %s%n", fileNotFoundException);
                                             System.out.println("Please Enter the correct filepath");
-                                            args[1] = scan.nextLine();
                                         }
                                     } while (continueLoop);
                                 }
@@ -153,7 +152,6 @@ public class Main {
                                         } catch (FileNotFoundException fileNotFoundException) {
                                             System.err.printf("%nException: %s%n", fileNotFoundException);
                                             System.out.println("Please Enter the correct filepath");
-                                            args[1] = scan.nextLine();
                                         }
                                     } while (continueLoop);
                                 }

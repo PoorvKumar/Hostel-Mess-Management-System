@@ -1135,36 +1135,32 @@ public class DatabaseService {
             while ((lineText = bufferedReader.readLine()) != null) {
 
                 String[] data = lineText.split(",");
-                Staff temp = null;
                 String updateID = data[0];
                 boolean isFound = updateCSVUtil1(updateID);
 
                 if (isFound) {
                     if ((data[0].toUpperCase()).contains("CK")) {
                         updateCSVUtil2(updateID, new Cook(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
-                        temp = new Cook(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6], data[7], Integer.parseInt(data[8]));
                     } else if ((data[0].toUpperCase()).contains("CR")) {
                         updateCSVUtil2(updateID, new Cleaner(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
-                        temp = new Cleaner(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6], data[7], Integer.parseInt(data[8]));
                     } else if ((data[0].toUpperCase()).contains("SV")) {
                         updateCSVUtil2(updateID, new Serve(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
-                        temp = new Serve(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6], data[7], Integer.parseInt(data[8]));
                     } else
                         System.out.println("Invalid ID Choice");
 
 
                 } else {
-                    preparedStatement.setString(1, data[0]);
-                    preparedStatement.setString(2, data[1]);
-                    preparedStatement.setInt(3, Integer.parseInt(data[2]));
-                    preparedStatement.setString(4, data[3]);
-                    preparedStatement.setString(5, data[4]);
-                    preparedStatement.setString(6, data[5]);
-                    preparedStatement.setString(7, data[6]);
-                    preparedStatement.setString(8, data[7]);
-                    preparedStatement.setInt(9, Integer.parseInt(data[8]));
-                    preparedStatement.setInt(10, temp.getSalary());
-                    preparedStatement.executeUpdate();
+                    if ((data[0].toUpperCase()).contains("CK")) {
+                        insertStaff(new Cook(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
+
+                    } else if ((data[0].toUpperCase()).contains("CR")) {
+                        insertStaff(new Cleaner(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
+
+                    } else if ((data[0].toUpperCase()).contains("SV")) {
+                        insertStaff(new Serve(data[0], data[1], Integer.parseInt(data[2]), data[3], data[4], data[5], data[6].toUpperCase(), data[7], Integer.parseInt(data[8])));
+                    } else {
+                        System.out.println("Invalid ID Choice");
+                    }
                 }
             }
             System.out.println("Data Updated Successfully");
