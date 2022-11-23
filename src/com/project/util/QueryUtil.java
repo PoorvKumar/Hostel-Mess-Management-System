@@ -1,6 +1,16 @@
 package com.project.util;
 
+import java.util.*;
 public class QueryUtil {
+
+    public static String registerLoginDetailsQuery() {
+        return "INSERT INTO LOGIN (NAME, EMAIL, PASSWORD, AGE, GENDER, CONTACT_NUMBER) VALUES (?, ?, ?, ?, ?, ?) ";
+    }
+
+    public static String loginCheckQuery(String email, String password) {
+        return "SELECT * FROM LOGIN WHERE EMAIL = \"" + email + "\" AND PASSWORD = \"" + password + "\"";
+    }
+
     public static String insertStudentQuery() {
         return "INSERT INTO STUDENT (ROLL_NUMBER, NAME, AGE, GENDER, CONTACT_NUMBER, DEGREE, FOOD_CHOICE) VALUES (?, ?, ?, ?, ?, ?, ?) ";
     }
@@ -78,12 +88,12 @@ public class QueryUtil {
         return "SELECT * FROM Staff";
     }
 
-    public static String selectAllStaffQueryOrderByName() {
-        return "SELECT * FROM Staff ORDER BY name";
+    public static String selectAllStaffQueryOrderBySalary() {
+        return "SELECT * FROM Staff ORDER BY salary";
     }
 
-    public static String selectAllStaffQueryOrderBySalary() {
-        return "SELECT * FROM Staff ORDER BY Salary";
+    public static String selectAllStaffQueryOrderByName() {
+        return "SELECT * FROM Staff ORDER BY name";
     }
 
 
@@ -168,10 +178,10 @@ public class QueryUtil {
     public static String SelectLessSalStaff(int staffSal) {
         return "SELECT * FROM Staff WHERE Salary < \"" + staffSal + "\" ";
     }
-    
+
     public static ArrayList<String> showMealsofDay(String day) //used ArrayList to  store queries for different tables
     {
-        ArrayList<String> meals=new ArrayList<String>(4);
+        ArrayList<String> meals = new ArrayList<String>(4);
         meals.add(showBreakfastofDay(day));
         meals.add(showLunchofDay(day));
         meals.add(showSnacksofDay(day));
@@ -180,74 +190,67 @@ public class QueryUtil {
         return meals;
     }
 
-    public static String showBreakfastofDay(String day)
-    {
-        return "select * from breakfast where day=\""+day+"\"";
+    public static String showBreakfastofDay(String day) {
+        return "select * from breakfast where day=\"" + day + "\"";
     }
-    public static String showLunchofDay(String day)
-    {
-        return "select * from lunch where day=\""+day+"\"";
+
+    public static String showLunchofDay(String day) {
+        return "select * from lunch where day=\"" + day + "\"";
     }
-    public static String showSnacksofDay(String day)
-    {
-        return "select * from snacks where day=\""+day+"\"";
+
+    public static String showSnacksofDay(String day) {
+        return "select * from snacks where day=\"" + day + "\"";
     }
-    public static String showDinnerofDay(String day)
-    {
-        return "select * from dinner where day=\""+day+"\"";
+
+    public static String showDinnerofDay(String day) {
+        return "select * from dinner where day=\"" + day + "\"";
     }
-    
-    public static String insertBreakfastCSV()
-    {
+
+    public static String insertBreakfastCSV() {
         return "insert into breakfast values(?,?)";
     }
 
-    public static String insertLunchCSV()
-    {
+    public static String insertLunchCSV() {
         return "insert into lunch values(?,?)";
     }
-    
-    public static String insertSnacksCSV()
-    {
+
+    public static String insertSnacksCSV() {
         return "insert into snacks values(?,?)";
     }
-    
-    public static String insertDinnerCSV()
-    {
+
+    public static String insertDinnerCSV() {
         return "insert into dinner values(?,?)";
     }
 
-    public static String deleteBreakfast()
-    {
+    public static String deleteBreakfast() {
         return "delete from breakfast";
     }
-    public static String deleteLunch()
-    {
+
+    public static String deleteLunch() {
         return "delete from lunch";
     }
-    public static String deleteSnacks()
-    {
+
+    public static String deleteSnacks() {
         return "delete from snacks";
     }
-    public static String deleteDinner()
-    {
+
+    public static String deleteDinner() {
         return "delete from dinner";
     }
-    
-    public static String updateBreakfast()
-    {
+
+    public static String updateBreakfast() {
         return "update breakfast set dishes=? where day=?";
     }
-    public static String updateLunch()
-    {
+
+    public static String updateLunch() {
         return "update lunch set dishes=? where day=?";
     }
-    public static String updateSnacks()
-    {
+
+    public static String updateSnacks() {
         return "update snacks set dishes=? where day=?";
     }
-    public static String updateDinner()
-    {
+
+    public static String updateDinner() {
         return "update dinners set dishes=? where day=?";
     }
 }
