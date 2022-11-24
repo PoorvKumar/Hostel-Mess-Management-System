@@ -53,7 +53,7 @@ public class Main {
                                 System.err.printf("%nException: %s%n", numberFormatException);
                                 System.out.println("Please Enter the details with correct format");
                             } catch (Exception e) {
-                                System.out.println("Something went wrong...");
+                                System.out.println("Something went wrong..." + e);
                                 scan.nextLine();
                             }
                         } while (continueLoop);
@@ -63,7 +63,7 @@ public class Main {
                 System.out.println("Invalid Input...Press Enter");
                 scan.nextLine(); //to clear buffer
             } catch (Exception e) {
-                System.out.println("Something went wrong...");
+                System.out.println("Something went wrong..." + e);
                 scan.nextLine();
             }
         }
@@ -471,7 +471,7 @@ public class Main {
 
                                         case 19 -> {
                                             System.out.println("Thank You. Visit Again");
-                                            isRunning = false;
+                                            staffIsRunning = false;
                                         }
 
                                         default -> System.out.println("Incorrect Choice");

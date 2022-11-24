@@ -9,7 +9,7 @@ public class DatabaseUtil {
     private static final String DRIVER_PATH = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/project";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "ary7415";
+    private static final String PASSWORD = "Batmangoku9000";
 
     public DatabaseUtil() {
         try {
