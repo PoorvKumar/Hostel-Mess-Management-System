@@ -264,7 +264,8 @@ public class Main {
 
                                                 do {
                                                     num = 1000 + rand.nextInt(9000);
-                                                } while (!databaseService.checkIdFound(Des, num));
+
+                                                } while (databaseService.checkIdFound(Des, num));
 
                                                 String id = "CK" + num;
                                                 System.out.println("Enter Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
@@ -274,21 +275,23 @@ public class Main {
                                             } else if (Des.equalsIgnoreCase("serve")) {
                                                 do {
                                                     num = 1000 + rand.nextInt(9000);
-                                                } while (!databaseService.checkIdFound(Des, num));
+
+                                                } while (databaseService.checkIdFound(Des, num));
 
                                                 String id = "SV" + num;
                                                 System.out.println("Enter Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
-                                                databaseService.insertStaff(new Cook(id, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "SERVE", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                databaseService.insertStaff(new Serve(id, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "SERVE", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
                                                 System.out.println("ID Generated: SV" + num + "\n");
 
                                             } else if (Des.equalsIgnoreCase("cleaner")) {
                                                 do {
                                                     num = 1000 + rand.nextInt(9000);
-                                                } while (!databaseService.checkIdFound(Des, num));
+
+                                                } while (databaseService.checkIdFound(Des, num));
 
                                                 String id = "CR" + num;
-                                                System.out.println("Enter Nam17e,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
-                                                databaseService.insertStaff(new Cook(id, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "CLEANER", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                System.out.println("Enter Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
+                                                databaseService.insertStaff(new Cleaner(id, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "CLEANER", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
                                                 System.out.println("ID Generated: CR" + num + "\n");
 
                                             } else
@@ -300,7 +303,8 @@ public class Main {
                                             System.out.println("1. Print ALl the Staff Details Sorted According to Name");
                                             System.out.println("2. Print ALl the Staff Details Sorted According to Salary");
                                             System.out.println("3. Print ALl the Staff Details ");
-                                            switch (Integer.parseInt(scan.nextLine())) {
+                                            int choice2 = Integer.parseInt(scan.nextLine());
+                                            switch (choice2) {
                                                 case 1 -> {
                                                     System.out.println("Details Of ALl Staffs");
                                                     System.out.println("___________________________________________________________");
@@ -309,7 +313,7 @@ public class Main {
                                                 case 2 -> {
                                                     System.out.println("Details Of ALl Staffs");
                                                     System.out.println("___________________________________________________________");
-                                                    databaseService.getAllStaffs("salary");
+                                                    databaseService.getAllStaffs("Salary");
                                                 }
                                                 case 3 -> {
                                                     System.out.println("Details Of ALl Staffs");
@@ -336,16 +340,55 @@ public class Main {
                                             boolean isFound = databaseService.getStaffById(updateStaffId.toUpperCase());
                                             if (isFound) {
 
-                                                System.out.println("Enter New ID,Name,Age,Gender(m/f),contact_Info,Designation,Address,Date of Joining,Work Experience Respectively");
-                                                String iD = scan.nextLine();
-                                                if ((iD.toUpperCase()).contains("CK")) {
-                                                    databaseService.updateStaff(updateStaffId, new Cook(iD.toUpperCase(), scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), scan.nextLine(), scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
-                                                } else if ((iD.toUpperCase()).contains("CR")) {
-                                                    databaseService.updateStaff(updateStaffId, new Cleaner(iD.toUpperCase(), scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), scan.nextLine(), scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
-                                                } else if ((iD.toUpperCase()).contains("SV")) {
-                                                    databaseService.updateStaff(updateStaffId, new Serve(iD.toUpperCase(), scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), scan.nextLine(), scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                System.out.println("Enter New Designation (if Designation same as previous then enter (Same) ) ");
+                                                String Desig = scan.nextLine();
+                                                if (Desig.equalsIgnoreCase("same")) {
+                                                    System.out.println("Enter New Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
+                                                    if ((updateStaffId.toUpperCase()).contains("CK")) {
+                                                        databaseService.updateStaff(updateStaffId, new Cook(updateStaffId, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "COOK", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                    } else if ((updateStaffId.toUpperCase()).contains("CR")) {
+                                                        databaseService.updateStaff(updateStaffId, new Cleaner(updateStaffId, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "CLEANER", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                    } else if ((updateStaffId.toUpperCase()).contains("SV")) {
+                                                        databaseService.updateStaff(updateStaffId, new Serve(updateStaffId, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "SERVE", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                    }
+                                                } else if (Desig.equalsIgnoreCase("Cook") || Desig.equalsIgnoreCase("Serve") || Desig.equalsIgnoreCase("Cleaner")) {
+                                                    int numb;
+                                                    if (Desig.equalsIgnoreCase("cook")) {
+
+                                                        do {
+                                                            numb = 1000 + rand.nextInt(9000);
+
+                                                        } while (databaseService.checkIdFound(Desig, numb));
+
+                                                        String id2 = "CK" + numb;
+                                                        System.out.println("Enter New Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
+                                                        databaseService.updateStaff(updateStaffId, new Cook(id2, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "COOK", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                        System.out.println("New ID Generated: CK" + numb + "\n");
+
+                                                    } else if (Desig.equalsIgnoreCase("serve")) {
+                                                        do {
+                                                            numb = 1000 + rand.nextInt(9000);
+                                                        } while (databaseService.checkIdFound(Desig, numb));
+
+                                                        String id2 = "SV" + numb;
+                                                        System.out.println("Enter New Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
+                                                        databaseService.updateStaff(updateStaffId, new Serve(id2, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "SERVE", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                        System.out.println("New ID Generated: SV" + numb + "\n");
+
+                                                    } else if (Desig.equalsIgnoreCase("cleaner")) {
+                                                        do {
+                                                            numb = 1000 + rand.nextInt(9000);
+
+                                                        } while (databaseService.checkIdFound(Desig, numb));
+
+                                                        String id2 = "CR" + numb;
+                                                        System.out.println("Enter New Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
+                                                        databaseService.updateStaff(updateStaffId, new Cleaner(id2, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "CLEANER", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
+                                                        System.out.println("New ID Generated: CR" + numb + "\n");
+
+                                                    }
                                                 } else
-                                                    System.out.println("Invalid ID Choice");
+                                                    System.out.println("Invalid Entry\n");
                                             }
                                         }
 
@@ -403,7 +446,7 @@ public class Main {
 
                                         case 14 -> {
                                             System.out.print("Enter Salary Amount : ");
-                                            databaseService.getSalaryByValue(Integer.parseInt(scan.nextLine()));
+                                            databaseService.getSalaryByvalue(Integer.parseInt(scan.nextLine()));
                                         }
 
                                         case 15 -> {
@@ -425,7 +468,6 @@ public class Main {
                                             System.out.println("Enter the File Path of CSV file");
                                             databaseService.updateCSV(scan.nextLine());
                                         }
-
 
                                         case 19 -> {
                                             System.out.println("Thank You. Visit Again");
@@ -539,7 +581,7 @@ public class Main {
                                         case 5 -> menu.showMenu();
 
                                         case 6 -> {
-                                            ArrayList<String> days = new ArrayList<String>();
+                                            ArrayList<String> days = new ArrayList<>();
                                             days.add("Monday");
                                             days.add("Tuesday");
                                             days.add("Wednesday");
@@ -556,7 +598,7 @@ public class Main {
                                         }
 
                                         case 7 -> {
-                                            ArrayList<String> days = new ArrayList<String>();
+                                            ArrayList<String> days = new ArrayList<>();
                                             days.add("Monday");
                                             days.add("Tuesday");
                                             days.add("Wednesday");
