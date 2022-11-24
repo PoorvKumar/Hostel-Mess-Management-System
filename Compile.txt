@@ -1,0 +1,3 @@
+javac food/*.java main/*.java menu/*.java person/*.java service/*.java staff/*.java student/*.java util/*.java staff/cleaner/*.java staff/cook/*.java staff/serve/*.java -d classes
+
+java -cp classes com.project.main.Main -h 

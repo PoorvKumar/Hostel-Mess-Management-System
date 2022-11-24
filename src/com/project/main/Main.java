@@ -27,6 +27,7 @@ public class Main {
             System.out.println("\nEnter choice:");
             System.out.println("1. Login");
             System.out.println("2. Register");
+            System.out.println("3. Exit");
 
             try {
                 int choice = Integer.parseInt(scan.nextLine());
@@ -57,6 +58,11 @@ public class Main {
                                 scan.nextLine();
                             }
                         } while (continueLoop);
+                    }
+
+                    case 3 -> {
+                        System.out.println("Thank You. Visit Again");
+                        login = false;
                     }
                 }
             } catch (NumberFormatException numberFormatException) {
@@ -191,7 +197,6 @@ public class Main {
                                                 } catch (FileNotFoundException fileNotFoundException) {
                                                     System.err.printf("%nException: %s%n", fileNotFoundException);
                                                     System.out.println("Please Enter the correct filepath");
-                                                    args[1] = scan.nextLine();
                                                 }
                                             } while (continueLoop);
                                         }
@@ -206,7 +211,6 @@ public class Main {
                                                 } catch (FileNotFoundException fileNotFoundException) {
                                                     System.err.printf("%nException: %s%n", fileNotFoundException);
                                                     System.out.println("Please Enter the correct filepath");
-                                                    args[1] = scan.nextLine();
                                                 }
                                             } while (continueLoop);
                                         }

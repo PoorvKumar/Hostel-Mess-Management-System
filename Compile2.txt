@@ -1,0 +1,5 @@
+javac -cp ./lib/*.jar src/com/project/main/*.java src/com/project/person/*.java src/com/project/service/*.java src/com/project/staff/*.java src/com/project/staff/cleaner/*.java src/com/project/staff/cook/*.java src/com/project/staff/serve/*.java src/com/project/student/*.java src/com/project/util/*.java
+
+java -cp src com.project.main.Main
+
+"C:\Program Files\Java\jdk-18.0.2\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.2\lib\idea_rt.jar=57498:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.2\bin" -Dfile.encoding=UTF-8 -classpath "C:\Users\harsh\Desktop\Harsh\Project\Project 2.0\out\production\Project;C:\Users\harsh\Desktop\Harsh\Project\Project 2.0\mysql-connector-j-8.0.31\mysql-connector-j-8.0.31.jar" com.project.main.Main
