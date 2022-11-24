@@ -389,6 +389,7 @@ public class Main {
                                                         System.out.println("Enter New Name,Age,Gender(m/f),contact_Info,Address,Date of Joining,Work Experience Respectively");
                                                         databaseService.updateStaff(updateStaffId, new Cleaner(id2, scan.nextLine(), Integer.parseInt(scan.nextLine()), scan.nextLine(), scan.nextLine(), "CLEANER", scan.nextLine(), scan.nextLine(), Integer.parseInt(scan.nextLine())));
                                                         System.out.println("New ID Generated: CR" + numb + "\n");
+                                                        scan.nextLine();
 
                                                     }
                                                 } else
@@ -746,33 +747,33 @@ public class Main {
 
                                                 switch (choiceMealInt) {
                                                     case 1 -> {
-                                                        System.out.println("Enter day for which breakfast to be updated");
+                                                        System.out.println("Enter day for which breakfast to be updated(firstCase upper rest lower))");
                                                         String day = scan.nextLine();
-                                                        System.out.println("Enter dishes :");
+                                                        System.out.println("Enter dishes(dishName1,Veg|dishName2,Non-Veg) :");
                                                         String dishes = scan.nextLine();
 
                                                         menu.updateBreakfast(day, dishes);
                                                     }
                                                     case 2 -> {
-                                                        System.out.println("Enter day for which breakfast to be updated(firstCase Upper and rest lower)");
+                                                        System.out.println("Enter day for which lunch to be updated(firstCase upper rest lower))");
                                                         String day = scan.nextLine();
-                                                        System.out.println("Enter dishes(dishName1,veg/non-veg|dishName2,veg/non-veg) :");
+                                                        System.out.println("Enter dishes(dishName1,Veg|dishName2,Non-Veg) :");
                                                         String dishes = scan.nextLine();
 
                                                         menu.updateLunch(day, dishes);
                                                     }
                                                     case 3 -> {
-                                                        System.out.println("Enter day for which breakfast to be updated");
+                                                        System.out.println("Enter day for which snacks to be updated(firstCase upper rest lower))");
                                                         String day = scan.nextLine();
-                                                        System.out.println("Enter dishes :");
+                                                        System.out.println("Enter dishes(dishName1,Veg|dishName2,Non-Veg) :");
                                                         String dishes = scan.nextLine();
 
                                                         menu.updateSnacks(day, dishes);
                                                     }
                                                     case 4 -> {
-                                                        System.out.println("Enter day for which breakfast to be updated");
+                                                        System.out.println("Enter day for which dinner to be updated(firstCase upper rest lower))");
                                                         String day = scan.nextLine();
-                                                        System.out.println("Enter dishes :");
+                                                        System.out.println("Enter dishes(dishName1,Veg|dishName2,Non-Veg) :");
                                                         String dishes = scan.nextLine();
 
                                                         menu.updateDinner(day, dishes);

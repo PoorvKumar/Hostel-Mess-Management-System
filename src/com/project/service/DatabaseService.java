@@ -1150,12 +1150,12 @@ public class DatabaseService {
 
         try (Connection connection = databaseUtil.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(QueryUtil.updateStaffQuery(updateID))) {
 
-            preparedStatement.setString(1, staff.getID());
+            preparedStatement.setString(1, staff.getID().toUpperCase());
             preparedStatement.setString(2, staff.getName());
             preparedStatement.setInt(3, staff.getAge());
-            preparedStatement.setString(4, staff.getGender());
+            preparedStatement.setString(4, staff.getGender().toUpperCase());
             preparedStatement.setString(5, staff.getContact_Info());
-            preparedStatement.setString(6, staff.getDesignation());
+            preparedStatement.setString(6, staff.getDesignation().toUpperCase());
             preparedStatement.setString(7, staff.getAddress());
             preparedStatement.setString(8, staff.getDoj());
             preparedStatement.setInt(9, staff.getWork_experience());

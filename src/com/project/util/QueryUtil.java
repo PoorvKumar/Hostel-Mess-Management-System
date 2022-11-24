@@ -169,7 +169,7 @@ public class QueryUtil {
     }
 
     public static String SelectGreaterSalStaff(int staffSal) {
-        return "SELECT * FROM Staff WHERE Salary > \"" + staffSal + "\" ";
+        return "SELECT * FROM Staff WHERE Salary > \"" + staffSal + "\" order by salary";
     }
 
     public static String countSalLessStaff(int staffSal) {
@@ -177,7 +177,7 @@ public class QueryUtil {
     }
 
     public static String SelectLessSalStaff(int staffSal) {
-        return "SELECT * FROM Staff WHERE Salary < \"" + staffSal + "\" ";
+        return "SELECT * FROM Staff WHERE Salary < \"" + staffSal + "\" order by salary desc ";
     }
 
     public static ArrayList<String> showMealsofDay(String day) //used ArrayList to  store queries for different tables
